@@ -1,8 +1,8 @@
 import csv
 
-f = open("testwords")
+f = open("words")
 r = csv.reader(f, delimiter="\t")
-w = open("test1", "a")
+w = open("wordsjson", "a")
 w.write("{")
 
 for row in r:
