@@ -2,8 +2,10 @@
 <html>
   <head>
     <style>
-      #panel,
-      .flip {
+      #click,
+      #word,
+      #definition,
+      #toggleButton {
         font-size: 16px;
         padding: 10px;
         text-align: center;
@@ -13,35 +15,74 @@
         margin: auto;
       }
 
-      #panel {
+      #definition,
+      #options,
+      #word {
         display: none;
+      }
+
+      #toggleButton,
+      #click {
+        margin: 0 auto;
+        display: block;
       }
     </style>
   </head>
   <body>
-    <p class="flip" onclick="myFunction()">Click to show panel</p>
-
-    <div id="panel">
-      <p>
-        This panel contains a div element, which is hidden by default (display:
-        none).
-      </p>
-      <p>
-        It is styled with CSS and we use JavaScript to show it (display: block).
-      </p>
-      <p>
-        How it works: Notice that the p element with class="flip" has an onclick
-        attribute attached to it. When the user clicks on the p element, a
-        function called myFunction() is executed, which changes the style of the
-        div with id="panel" from display:none (hidden) to display:block
-        (visible).
-      </p>
-      <p>You will learn more about JavaScript in our JavaScript Tutorial.</p>
+    <div>
+      <button id="click" onClick="getRandomWord()">Get a new word</button>
+      <div id="word"></div>
+      <div id="options">
+        <button id="toggleButton" onClick="toggleDefinition()">
+          See definition
+        </button>
+        <!-- <button onClick="getRandomWord()">Get a different word</button> -->
+      </div>
+      <div id="definition"></div>
     </div>
 
     <script>
-      function myFunction() {
-        document.getElementById("panel").style.display = "block";
+      var words = {
+        aa:
+          "a kind of volcanic lava that forms jagged masses with a light frothy texture; in an unrelated sense (‘a stream’) aa is the first entry in the Oxford English Dictionary",
+        abaya: "a full-length, sleeveless outer garment worn by Arabs",
+        abomasum: "the fourth stomach of a ruminant, such as a cow or sheep",
+        absquatulate: "to leave somewhere abruptly",
+        adscititious: "additional",
+        afreet: "a powerful jinn or demon in Arabian and Muslim mythology",
+        Albertopolis:
+          "a group of museums and other cultural institutions in South Kensington in London, named after Prince Albert",
+        alcazar: "a Spanish palace or fortress",
+        amphibology:
+          "a phrase or sentence that is grammatically ambiguous, such asShe sees more of her children than her husband",
+      };
+
+      function getRandomWord() {
+        document.getElementById("word").style.display = "none";
+        document.getElementById("definition").style.display = "none";
+
+        var idx = Math.floor(Math.random() * Object.keys(words).length);
+        var word = Object.keys(words)[idx];
+        var definition = words[word];
+
+        document.getElementById("word").textContent = word;
+        document.getElementById("word").style.display = "block";
+        document.getElementById("options").style.display = "block";
+        document.getElementById("toggleButton").style.display = "block";
+
+        document.getElementById("definition").textContent = definition;
+      }
+
+      showing = false;
+      function toggleDefinition() {
+        if (showing == false) {
+          document.getElementById("definition").style.display = "block";
+          document.getElementById("toggleButton").style.display = "none";
+          showing = true;
+        } else {
+          document.getElementById("definition").style.display = "none";
+          showing = false;
+        }
       }
     </script>
   </body>
